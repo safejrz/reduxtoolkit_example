@@ -1,19 +1,16 @@
 import React, { useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
-
-
-export default function TodoInput() {
+const TodoInput = ({ addItem }) => {
     const [value, setValue] = useState('')
-    const dispatch = useDispatch()
 
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault() 
-            dispatch({ type: 'ADD_ITEM', payload: { item: value }})
+            addItem(value)
             setValue('')
         },
-        [setValue, dispatch, value],
+        [setValue, addItem, value],
     )    
 
     return (
@@ -23,3 +20,7 @@ export default function TodoInput() {
         </form>
     )
 }
+
+export default connect(null, dispatch => ({
+    addItem: value => dispatch({ type: 'ADD_ITEM', payload: { item: value }})
+}))(TodoInput)

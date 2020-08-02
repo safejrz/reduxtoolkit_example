@@ -1,15 +1,13 @@
 import React, { useCallback } from 'react'
 import TodoItem from '../TodoItem'
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
-
-export default function TodoList() {
-    const list = useSelector(state => state.items)
-    const dispatch = useDispatch()
+const TodoList = ({ removeItem, list }) => {
+    //const list = useSelector(state => state.items)
     
     const onClickRemove = useCallback((item) => {
-        dispatch({ type: "REMOVE_ITEM", payload: item })
-    }, [dispatch])
+        removeItem(item)        
+    }, [removeItem])
     
     return (
         <div>
@@ -17,3 +15,13 @@ export default function TodoList() {
         </div>
     )
 }
+
+export default connect(state => {
+    return {
+        list: state.items
+    }
+}, dispatch => {
+    return ({
+        removeItem: item => dispatch({ type: "REMOVE_ITEM", payload: item })
+    })
+})(TodoList)
