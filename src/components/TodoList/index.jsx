@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import TodoItem from '../TodoItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectItems, remove_item } from '../../App'
-
+import { selectItems, remove_item } from './../../features/todoListSlice'
 
 export default function TodoList() {
     const list = useSelector(selectItems)

@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { add_item } from '../../App'
-
-
+import { add_item } from '../../features/todoListSlice'
 
 export default function TodoInput() {
     const [value, setValue] = useState('')
