@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
+import { add_item } from '../../App'
 
 
 
@@ -10,7 +11,7 @@ export default function TodoInput() {
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault() 
-            dispatch({ type: 'ADD_ITEM', payload: { item: value }})
+            dispatch(add_item(value))
             setValue('')
         },
         [setValue, dispatch, value],
