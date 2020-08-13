@@ -7,7 +7,8 @@ const TodoInput = ({ addItem }) => {
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault() 
-            addItem(value)
+            // Evento que permite agregar el item (value)
+            addItem(value) 
             setValue('')
         },
         [setValue, addItem, value],
@@ -21,6 +22,12 @@ const TodoInput = ({ addItem }) => {
     )
 }
 
-export default connect(null, dispatch => ({
-    addItem: value => dispatch({ type: 'ADD_ITEM', payload: { item: value }})
-}))(TodoInput)
+const mapDispatchToProps = dispatch => {
+    return ({
+        addItem: (value) => {
+            dispatch({ type: 'ADD_ITEM', payload: { item: value } })
+        }
+    })
+}
+
+export default connect(null, mapDispatchToProps)(TodoInput)
