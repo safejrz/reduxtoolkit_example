@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 const initialValue = { items: []}
 
 const reducer = (state = initialValue, action) => {
+  debugger
   switch (action.type) {
     case 'ADD_ITEM':
       return { ...state, items: [...state.items, action.payload]}

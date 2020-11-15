@@ -1,14 +1,17 @@
 import React, { useState, useCallback } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const TodoInput = ({ addItem }) => {
     const [value, setValue] = useState('')
+    const dispatch = useDispatch()
 
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault() 
             // Evento que permite agregar el item (value)
-            addItem(value) 
+            // addItem(value) 
+            dispatch({ type: 'ADD_ITEM', payload: { item: value } })
+
             setValue('')
         },
         [setValue, addItem, value],
@@ -22,12 +25,4 @@ const TodoInput = ({ addItem }) => {
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return ({
-        addItem: (value) => {
-            dispatch({ type: 'ADD_ITEM', payload: { item: value } })
-        }
-    })
-}
-
-export default connect(null, mapDispatchToProps)(TodoInput)
+export default TodoInput
