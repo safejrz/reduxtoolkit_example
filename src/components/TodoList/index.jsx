@@ -3,13 +3,15 @@ import TodoItem from '../TodoItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectItems, remove_item } from './../../features/todoListSlice'
 
-export default function TodoList() {
-    const list = useSelector(selectItems)
-    const dispatch = useDispatch()
+//export default function TodoList() {
+
+const TodoList = () => {
+    const list = [{ item: 'uno'}, { item: 'dos'}, { item: 'tres'}] //useSelector(selectItems)
+    //const dispatch = useDispatch()
     
     const onClickRemove = useCallback((item) => {
-        dispatch(remove_item(item))
-    }, [dispatch])
+      //  dispatch(remove_item(item))
+    }, []) // dispatch])
     
     return (
         <div>
@@ -17,3 +19,9 @@ export default function TodoList() {
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return ()
+}
+
+export default connect(mapStateToProps)(TodoList)
