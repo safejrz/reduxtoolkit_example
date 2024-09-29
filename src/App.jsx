@@ -1,22 +1,27 @@
 import React from 'react';
 import TodoList from './components/TodoList'
 import TodoInput from './components/TodoInput'
-import './App.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-//import { store } from './store';
-//import { createApi } from '@reduxjs/toolkit/query'
+import './App.css';
 
 const initialValue = {
-  items: [{ item: 'uno'}, { item: 'dos'}, { item: 'tres'}]
-} //useSelector(selectItems) () => TodoList //[]
+  items: []
+}
 
 const reducer = (state = initialValue, action) => {
-  return state
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return { ...state, items: [...state.items, action.payload] }
+    case 'REMOVE_ITEM':
+      return { ...state, items: state.items.filter(i => i.item !== action.payload) }
+    default:
+      return state;
+  }
 }
 
 const store = createStore(
-  reducer, 
+  reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

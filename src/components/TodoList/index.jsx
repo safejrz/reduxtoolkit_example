@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react'
 import TodoItem from '../TodoItem'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectItems, remove_item } from './../../features/todoListSlice'
 import { connect } from 'react-redux'
 
-const TodoList = ({ list }) => {
-    //const list = [{ item: 'uno' }, { item: 'dos' }, { item: 'tres' }]
-
+const TodoList = ({ list, removeItem }) => {
     const onClickRemove = useCallback((item) => {
+        //Delete an item
+        removeItem(item)
     }, [])
 
     return (
@@ -23,4 +21,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(TodoList)
+const mapDispatchToProps = dispatch => {
+    return {
+        removeItem: value => dispatch({type: 'REMOVE_ITEM', payload: value})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

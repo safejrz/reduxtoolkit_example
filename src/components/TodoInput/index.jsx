@@ -1,19 +1,18 @@
 import React, { useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { add_item } from '../../features/todoListSlice'
+import { connect, useDispatch } from 'react-redux'
 
-export default function TodoInput() {
+const TodoInput = ({ addItem }) => {
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
 
     const onSubmit = useCallback(
         (e) => {
-            e.preventDefault() 
-            dispatch(add_item(value))
+            e.preventDefault()
+            addItem(value)
             setValue('')
         },
         [setValue, dispatch, value],
-    )    
+    )
 
     return (
         <form onSubmit={onSubmit}>
@@ -22,3 +21,13 @@ export default function TodoInput() {
         </form>
     )
 }
+
+const mapDispatchToProps = dispatch => {
+    return ({
+        addItem: (value) => {
+            dispatch({ type: 'ADD_ITEM', payload: { item: value } })
+        }
+    })
+}
+
+export default connect(null, mapDispatchToProps)(TodoInput)
